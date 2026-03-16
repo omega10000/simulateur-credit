@@ -2,20 +2,21 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<title>Simulateur Investissement Immobilier</title>
+<title>Analyse Investissement Immobilier</title>
 
 <style>
+
 body{
 font-family:Arial;
-background:#f4f4f4;
-padding:30px;
+background:#f3f3f3;
+padding:40px;
 }
 
 .container{
 background:white;
-padding:25px;
-border-radius:10px;
-max-width:600px;
+padding:30px;
+border-radius:12px;
+max-width:700px;
 margin:auto;
 }
 
@@ -26,13 +27,13 @@ text-align:center;
 input{
 width:100%;
 padding:8px;
-margin:5px 0 15px 0;
+margin-bottom:15px;
 }
 
 button{
 width:100%;
-padding:10px;
-background:#4CAF50;
+padding:12px;
+background:#2e7d32;
 color:white;
 border:none;
 font-size:16px;
@@ -40,11 +41,18 @@ cursor:pointer;
 }
 
 .result{
-margin-top:20px;
-padding:15px;
+margin-top:25px;
 background:#f0f0f0;
+padding:20px;
 border-radius:8px;
 }
+
+.score{
+font-size:22px;
+font-weight:bold;
+margin-top:10px;
+}
+
 </style>
 
 </head>
@@ -53,10 +61,13 @@ border-radius:8px;
 
 <div class="container">
 
-<h1>Simulateur Investissement</h1>
+<h1>Analyse Investissement Immobilier</h1>
 
 <label>Prix du bien (€)</label>
 <input id="prix" type="number" value="130000">
+
+<label>Surface (m²)</label>
+<input id="surface" type="number" value="35">
 
 <label>Apport (€)</label>
 <input id="apport" type="number" value="10000">
@@ -67,19 +78,19 @@ border-radius:8px;
 <label>Durée (années)</label>
 <input id="duree" type="number" value="25">
 
-<label>Loyer mensuel (€)</label>
+<label>Loyer mensuel estimé (€)</label>
 <input id="loyer" type="number" value="750">
 
 <label>Travaux (€)</label>
 <input id="travaux" type="number" value="10000">
 
 <label>Charges mensuelles (€)</label>
-<input id="charges" type="number" value="100">
+<input id="charges" type="number" value="120">
 
 <label>Taxe foncière annuelle (€)</label>
 <input id="taxe" type="number" value="800">
 
-<button onclick="calcul()">Calculer</button>
+<button onclick="calcul()">Analyser le bien</button>
 
 <div class="result" id="resultat"></div>
 
@@ -90,6 +101,7 @@ border-radius:8px;
 function calcul(){
 
 let prix = Number(document.getElementById("prix").value)
+let surface = Number(document.getElementById("surface").value)
 let apport = Number(document.getElementById("apport").value)
 let taux = Number(document.getElementById("taux").value)/100/12
 let duree = Number(document.getElementById("duree").value)*12
@@ -99,28 +111,53 @@ let charges = Number(document.getElementById("charges").value)
 let taxe = Number(document.getElementById("taxe").value)
 
 let notaire = prix * 0.08
+let budgetTotal = prix + travaux + notaire
 
-let montant = prix + travaux + notaire - apport
+let montant = budgetTotal - apport
 
 let mensualite = montant * taux / (1 - Math.pow(1 + taux, -duree))
 
 let cashflow = loyer - mensualite - charges - (taxe/12)
 
-let rendement = (loyer*12) / (prix + travaux + notaire) * 100
+let rendement = (loyer*12) / budgetTotal * 100
 
-let coutcredit = mensualite * duree - montant
+let prixm2 = prix / surface
 
-document.getElementById("resultat").innerHTML = "
+let score = 0
 
-Mensualité : " + mensualite.toFixed(0) + " €<br><br>" +
+if(rendement > 10) score += 40
+else if(rendement > 7) score += 30
+else if(rendement > 5) score += 20
+else score += 10
+
+if(cashflow > 200) score += 40
+else if(cashflow > 0) score += 25
+else score += 5
+
+if(prixm2 < 3000) score += 20
+else if(prixm2 < 4000) score += 10
+
+let verdict = ""
+
+if(score > 70) verdict = "🔥 Très bon investissement"
+else if(score > 50) verdict = "👍 Investissement correct"
+else verdict = "⚠️ À analyser"
+
+document.getElementById("resultat").innerHTML =
+
+"Prix au m² : " + prixm2.toFixed(0) + " €/m²<br><br>" +
+
+"Mensualité : " + mensualite.toFixed(0) + " €<br><br>" +
 
 "Cashflow mensuel : " + cashflow.toFixed(0) + " €<br><br>" +
 
 "Rendement brut : " + rendement.toFixed(2) + " %<br><br>" +
 
-"Frais de notaire estimés : " + notaire.toFixed(0) + " €<br><br>" +
+"Budget total projet : " + budgetTotal.toFixed(0) + " €<br><br>" +
 
-"Coût total du crédit : " + coutcredit.toFixed(0) + " €"
+"Score investissement : <span class='score'>" + score + "/100</span><br><br>" +
+
+verdict
 
 }
 

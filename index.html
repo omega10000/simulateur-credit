@@ -10,7 +10,7 @@
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: #f8f7f4;
             color: #37352f;
-            font-size: 11px;
+            font-size: 12px;
         }
         .container {
             max-width: 980px;
@@ -25,8 +25,8 @@
             gap: 10px;
             margin-bottom: 10px;
         }
-        h1 { font-size: 15px; font-weight: 700; }
-        .subtitle { color: #787774; font-size: 10px; }
+        h1 { font-size: 16px; font-weight: 700; }
+        .subtitle { color: #787774; font-size: 11px; }
 
         /* MAIN LAYOUT: 2 colonnes égales */
         .main-grid {
@@ -45,11 +45,10 @@
             border: 1px solid #e8e7e4;
         }
         .block-title {
-            font-size: 10px;
+            font-size: 11px;
             font-weight: 600;
             color: #37352f;
             text-transform: uppercase;
-            letter-spacing: 0.4px;
             margin-bottom: 8px;
             display: flex;
             align-items: center;
@@ -67,7 +66,7 @@
         .slider-label {
             display: flex;
             justify-content: space-between;
-            font-size: 10px;
+            font-size: 11px;
             color: #787774;
             margin-bottom: 2px;
         }
@@ -101,8 +100,8 @@
             border-bottom: 1px solid #f5f4f1;
         }
         .result-row:last-child { border-bottom: none; }
-        .rl { font-size: 10px; color: #6b6b68; }
-        .rv { font-size: 10px; font-weight: 600; color: #37352f; }
+        .rl { font-size: 11px; color: #6b6b68; }
+        .rv { font-size: 11px; font-weight: 600; color: #37352f; }
         .rv.blue   { color: #2383e2; }
         .rv.green  { color: #0f7b0f; }
         .rv.orange { color: #d9730d; }
@@ -111,23 +110,23 @@
         /* BIG NUMBER */
         .big-num { text-align: center; padding: 6px 0 4px; }
         .big-num .val { font-size: 26px; font-weight: 700; line-height: 1; color: #2383e2; }
-        .big-num .lbl { font-size: 9px; color: #787774; margin-top: 2px; }
+        .big-num .lbl { font-size: 10px; color: #787774; margin-top: 2px; }
 
         /* CASHFLOW */
         .cashflow { text-align: center; border-radius: 5px; padding: 6px 8px; margin-top: 6px; }
         .cashflow.pos { background: #dbeddb; }
         .cashflow.neg { background: #fde8e8; }
         .cashflow .val { font-size: 18px; font-weight: 700; }
-        .cashflow .lbl { font-size: 9px; margin-top: 1px; color: #555; }
+        .cashflow .lbl { font-size: 10px; margin-top: 1px; color: #555; }
 
         /* BARS */
         .full { grid-column: 1 / -1; }
         .bars { display: flex; flex-direction: column; gap: 4px; margin-top: 4px; }
         .bar-row { display: flex; align-items: center; gap: 6px; }
-        .bar-lbl { font-size: 9px; color: #6b6b68; width: 72px; text-align: right; flex-shrink: 0; }
+        .bar-lbl { font-size: 10px; color: #6b6b68; width: 72px; text-align: right; flex-shrink: 0; }
         .bar-track { flex: 1; height: 12px; background: #f0efed; border-radius: 3px; overflow: hidden; }
         .bar-fill { height: 100%; border-radius: 3px; transition: width 0.4s ease; }
-        .bar-amt { font-size: 9px; font-weight: 600; width: 66px; text-align: right; flex-shrink: 0; }
+        .bar-amt { font-size: 10px; font-weight: 600; width: 66px; text-align: right; flex-shrink: 0; }
         .fill-blue   { background: #2383e2; }
         .fill-green  { background: #0f7b0f; }
         .fill-orange { background: #d9730d; }
@@ -184,8 +183,8 @@
                     <input type="range" id="duree" min="5" max="30" step="1" value="20">
                 </div>
                 <div class="slider-group">
-                    <div class="slider-label"><span>Assurance mensuelle</span><span class="val" id="assurance-display">25 €</span></div>
-                    <input type="range" id="assurance" min="0" max="100" step="1" value="25">
+                    <div class="slider-label"><span>Assurance (taux annuel)</span><span class="val" id="assurance-display">0.36 %</span></div>
+                    <input type="range" id="assurance" min="0.1" max="1.0" step="0.01" value="0.36">
                 </div>
                 <div class="divider"></div>
                 <div class="result-row">
@@ -277,24 +276,27 @@
     }
 
     function update() {
-        const prix      = +$('prix').value;
-        const apport    = +$('apport').value;
-        const travaux   = +$('travaux').value;
-        const taux      = +$('taux').value;
-        const duree     = +$('duree').value;
-        const assurance = +$('assurance').value;
-        const loyer     = +$('loyer').value;
-        const charges   = +$('charges').value;
+        const prix          = +$('prix').value;
+        const apport        = +$('apport').value;
+        const travaux       = +$('travaux').value;
+        const taux          = +$('taux').value;
+        const duree         = +$('duree').value;
+        const assuranceTaux = +$('assurance').value; // taux annuel en %
+        const loyer         = +$('loyer').value;
+        const charges       = +$('charges').value;
 
         const notaire          = Math.round(prix * 0.08);
+        // Les frais de notaire sont payés de sa poche — exclus du montant emprunté
         const totalAcquisition = prix + notaire + travaux;
-        const emprunt          = totalAcquisition - apport;
+        const emprunt          = prix + travaux - apport; // notaire hors emprunt
         const mensualite       = calcMensualite(emprunt, taux, duree);
-        const mensualiteTotale = mensualite + assurance;
-        const coutInterets     = mensualite * duree * 12 - emprunt;
-        const coutAssurance    = assurance * duree * 12;
-        const coutTotalCredit  = coutInterets + coutAssurance;
-        const coutTotalOp      = totalAcquisition + coutTotalCredit;
+        // Assurance = taux annuel appliqué sur capital emprunté initial, divisé par 12
+        const assuranceMensuelle = emprunt * (assuranceTaux / 100) / 12;
+        const mensualiteTotale   = mensualite + assuranceMensuelle;
+        const coutInterets       = mensualite * duree * 12 - emprunt;
+        const coutAssurance      = assuranceMensuelle * duree * 12;
+        const coutTotalCredit    = coutInterets + coutAssurance;
+        const coutTotalOp        = totalAcquisition + coutTotalCredit;
 
         const rentaBrute = prix > 0 ? (loyer * 12 / prix * 100) : 0;
         const rentaNette = prix > 0 ? ((loyer - charges) * 12 / (prix + travaux) * 100) : 0;
@@ -305,7 +307,7 @@
         $('travaux-display').textContent   = fmt(travaux);
         $('taux-display').textContent      = fmtPct(taux);
         $('duree-display').textContent     = duree + ' ans';
-        $('assurance-display').textContent = fmt(assurance);
+        $('assurance-display').textContent = assuranceTaux.toFixed(2) + ' %';
         $('loyer-display').textContent     = fmt(loyer);
         $('charges-display').textContent   = fmt(charges);
 
@@ -313,7 +315,7 @@
         $('total-acquisition').textContent    = fmt(totalAcquisition);
         $('emprunt').textContent              = fmt(emprunt);
         $('cout-interets').textContent        = fmt(coutInterets);
-        $('cout-assurance').textContent       = fmt(coutAssurance);
+        $('cout-assurance').textContent       = fmt(coutAssurance) + ' (' + fmt(assuranceMensuelle) + '/mois)';
         $('mensualite').textContent           = fmt(Math.round(mensualite));
         $('mensualite-totale').textContent    = fmt(Math.round(mensualiteTotale));
         $('cout-total-credit').textContent    = fmt(coutTotalCredit);

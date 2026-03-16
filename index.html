@@ -315,8 +315,8 @@
                 </div>
 
                 <div class="slider-group">
-                    <label>Assurance mensuelle <span class="slider-value" id="assurance-display">25 €</span></label>
-                    <input type="range" id="assurance" min="0" max="100" step="1" value="25">
+                    <label>Assurance (taux annuel) <span class="slider-value" id="assurance-display">0.36 %</span></label>
+                    <input type="range" id="assurance" min="0.05" max="1.0" step="0.01" value="0.36">
                 </div>
 
                 <div class="divider"></div>
@@ -331,7 +331,7 @@
                 </div>
                 <div class="result-row">
                     <span class="result-label">Coût total assurance</span>
-                    <span class="result-value" id="cout-assurance">6 000 €</span>
+                    <span class="result-value" id="cout-assurance">6 000 € (25 €/mois)</span>
                 </div>
             </div>
 
@@ -415,7 +415,7 @@
             const travaux = +$('travaux').value;
             const taux = +$('taux').value;
             const duree = +$('duree').value;
-            const assurance = +$('assurance').value;
+            const assuranceTaux = +$('assurance').value;
             const loyer = +$('loyer').value;
             const charges = +$('charges').value;
 
@@ -423,6 +423,7 @@
             const totalAcquisition = prix + notaire + travaux;
             const emprunt = totalAcquisition - apport;
             const mensualite = calcMensualite(emprunt, taux, duree);
+            const assurance = (emprunt * assuranceTaux / 100) / 12;
             const mensualiteTotale = mensualite + assurance;
             const coutInterets = mensualite * duree * 12 - emprunt;
             const coutAssurance = assurance * duree * 12;
@@ -439,7 +440,7 @@
             $('travaux-display').textContent = fmt(travaux);
             $('taux-display').textContent = fmtPct(taux);
             $('duree-display').textContent = duree + ' ans';
-            $('assurance-display').textContent = fmt(assurance);
+            $('assurance-display').textContent = assuranceTaux.toFixed(2) + ' %';
             $('loyer-display').textContent = fmt(loyer);
             $('charges-display').textContent = fmt(charges);
 
@@ -447,7 +448,7 @@
             $('total-acquisition').textContent = fmt(totalAcquisition);
             $('emprunt').textContent = fmt(emprunt);
             $('cout-interets').textContent = fmt(coutInterets);
-            $('cout-assurance').textContent = fmt(coutAssurance);
+            $('cout-assurance').textContent = fmt(coutAssurance) + ' (' + fmt(Math.round(assurance)) + '/mois)';
             $('mensualite').textContent = fmt(Math.round(mensualite));
             $('mensualite-totale').textContent = fmt(Math.round(mensualiteTotale));
             $('cout-total-credit').textContent = fmt(coutTotalCredit);

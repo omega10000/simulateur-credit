@@ -8,392 +8,342 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #f8f7f4;
+            background: #f5f5f0;
             color: #37352f;
-            min-height: 100vh;
+            font-size: 13px;
         }
         .container {
-            max-width: 960px;
+            max-width: 900px;
             margin: 0 auto;
-            padding: 32px 24px;
+            padding: 20px 16px;
         }
-        h1 {
-            font-size: 28px;
+        .page-title {
+            font-size: 20px;
             font-weight: 700;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
         }
         .subtitle {
-            color: #787774;
-            font-size: 14px;
-            margin-bottom: 32px;
+            color: #9b9b98;
+            font-size: 12px;
+            margin-bottom: 16px;
         }
         .grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 24px;
+            gap: 12px;
         }
-        @media (max-width: 700px) {
+        @media (max-width: 640px) {
             .grid { grid-template-columns: 1fr; }
         }
         .card {
             background: white;
-            border-radius: 12px;
-            padding: 24px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-            border: 1px solid #e8e7e4;
-        }
-        .card h2 {
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .card h2 .icon {
-            width: 28px;
-            height: 28px;
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-        }
-        .icon-blue { background: #d3e5ef; }
-        .icon-green { background: #dbeddb; }
-        .icon-orange { background: #fadec9; }
-        .icon-purple { background: #e8deee; }
-
-        .form-group {
-            margin-bottom: 16px;
-        }
-        .form-group label {
-            display: block;
-            font-size: 12px;
-            font-weight: 500;
-            color: #787774;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 6px;
-        }
-        .form-group input, .form-group select {
-            width: 100%;
-            padding: 10px 12px;
-            border: 1px solid #e0dfdc;
             border-radius: 8px;
-            font-size: 15px;
+            padding: 14px 16px;
+            border: 1px solid #e3e2df;
+        }
+        .card-header {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.6px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .dot { font-size: 14px; line-height: 1; }
+        .dot-blue   { color: #2383e2; }
+        .dot-green  { color: #0f7b0f; }
+        .dot-orange { color: #d9730d; }
+        .dot-purple { color: #6940a5; }
+
+        /* Sliders */
+        .slider-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 3px;
+        }
+        .slider-row .lbl {
+            font-size: 12px;
+            color: #787774;
+        }
+        .slider-row .val {
+            font-size: 13px;
+            font-weight: 700;
             color: #37352f;
-            background: #fafafa;
-            transition: border-color 0.2s;
         }
-        .form-group input:focus, .form-group select:focus {
+        input[type="range"] {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 4px;
+            border-radius: 2px;
+            background: #e0dfdc;
             outline: none;
-            border-color: #2383e2;
-            background: white;
+            margin-bottom: 10px;
         }
-        .input-suffix {
-            position: relative;
-        }
-        .input-suffix::after {
-            content: attr(data-suffix);
-            position: absolute;
-            right: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #b4b4b0;
-            font-size: 14px;
-            pointer-events: none;
-        }
-        .input-suffix input {
-            padding-right: 40px;
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #2383e2;
+            cursor: pointer;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.25);
         }
 
+        /* Result rows */
+        .sep {
+            height: 1px;
+            background: #f0efed;
+            margin: 8px 0;
+        }
         .result-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px 0;
-            border-bottom: 1px solid #f0efed;
+            padding: 4px 0;
         }
-        .result-row:last-child { border-bottom: none; }
-        .result-label {
-            font-size: 14px;
-            color: #6b6b68;
+        .result-row .lbl {
+            font-size: 12px;
+            color: #787774;
         }
-        .result-value {
-            font-size: 15px;
+        .result-row .val {
+            font-size: 13px;
             font-weight: 600;
             color: #37352f;
         }
-        .result-value.highlight-blue { color: #2383e2; }
-        .result-value.highlight-green { color: #0f7b0f; }
-        .result-value.highlight-red { color: #e03e3e; }
-        .result-value.highlight-orange { color: #d9730d; }
+        .c-blue   { color: #2383e2 !important; }
+        .c-green  { color: #0f7b0f !important; }
+        .c-red    { color: #e03e3e !important; }
+        .c-orange { color: #d9730d !important; }
 
-        .big-number {
+        /* Big mensualité number */
+        .big-num {
             text-align: center;
-            padding: 20px 0;
+            padding: 10px 0 8px;
         }
-        .big-number .value {
-            font-size: 42px;
+        .big-num .value {
+            font-size: 36px;
             font-weight: 700;
-            line-height: 1.1;
+            line-height: 1;
         }
-        .big-number .label {
-            font-size: 13px;
-            color: #787774;
-            margin-top: 4px;
+        .big-num .sublabel {
+            font-size: 11px;
+            color: #9b9b98;
+            margin-top: 3px;
         }
 
+        /* Cash-flow box */
         .cashflow-box {
             text-align: center;
-            padding: 16px;
-            border-radius: 10px;
-            margin-top: 12px;
+            border-radius: 6px;
+            padding: 8px 12px;
+            margin-top: 8px;
         }
-        .cashflow-positive { background: #dbeddb; }
-        .cashflow-negative { background: #fde8e8; }
-        .cashflow-box .value {
-            font-size: 28px;
+        .cf-pos { background: #e6f4e6; }
+        .cf-neg { background: #fce8e8; }
+        .cashflow-box .cf-val {
+            font-size: 22px;
             font-weight: 700;
         }
-        .cashflow-box .label {
-            font-size: 12px;
-            margin-top: 2px;
+        .cashflow-box .cf-lbl {
+            font-size: 11px;
+            color: #787774;
         }
 
-        .bar-container {
-            margin-top: 16px;
-        }
+        /* Bars */
+        .full-width { grid-column: 1 / -1; }
+        .bar-container { margin-top: 4px; }
         .bar-row {
             display: flex;
             align-items: center;
-            margin-bottom: 8px;
             gap: 8px;
+            margin-bottom: 7px;
         }
-        .bar-label {
-            font-size: 12px;
+        .bar-lbl {
+            font-size: 11px;
             color: #6b6b68;
-            width: 100px;
+            width: 90px;
             text-align: right;
             flex-shrink: 0;
         }
         .bar-track {
             flex: 1;
-            height: 24px;
+            height: 18px;
             background: #f0efed;
-            border-radius: 6px;
+            border-radius: 4px;
             overflow: hidden;
-            position: relative;
         }
         .bar-fill {
             height: 100%;
-            border-radius: 6px;
-            transition: width 0.5s ease;
+            border-radius: 4px;
+            transition: width 0.4s ease;
         }
-        .bar-amount {
-            font-size: 12px;
+        .bar-amt {
+            font-size: 11px;
             font-weight: 600;
-            width: 80px;
+            width: 75px;
             text-align: right;
             flex-shrink: 0;
         }
-        .fill-blue { background: #2383e2; }
-        .fill-green { background: #0f7b0f; }
-        .fill-orange { background: #d9730d; }
-        .fill-red { background: #e03e3e; }
+        .fill-blue   { background: #2383e2; }
         .fill-purple { background: #9065b0; }
-
-        .team-tag {
-            display: inline-block;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 12px;
-            font-weight: 500;
-        }
-        .tag-brice { background: #d3e5ef; color: #2383e2; }
-        .tag-vincent { background: #dbeddb; color: #0f7b0f; }
-        .tag-justine { background: #e8deee; color: #6940a5; }
-
-        .divider {
-            height: 1px;
-            background: #e8e7e4;
-            margin: 16px 0;
-        }
-
-        .full-width {
-            grid-column: 1 / -1;
-        }
-
-        .slider-group {
-            margin-bottom: 16px;
-        }
-        .slider-group label {
-            display: flex;
-            justify-content: space-between;
-            font-size: 12px;
-            font-weight: 500;
-            color: #787774;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 6px;
-        }
-        .slider-group label .slider-value {
-            color: #37352f;
-            font-weight: 700;
-            font-size: 14px;
-            text-transform: none;
-        }
-        input[type="range"] {
-            -webkit-appearance: none;
-            width: 100%;
-            height: 6px;
-            border-radius: 3px;
-            background: #e0dfdc;
-            outline: none;
-        }
-        input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: #2383e2;
-            cursor: pointer;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.2);
-        }
+        .fill-orange { background: #d9730d; }
+        .fill-red    { background: #e03e3e; }
+        .fill-green  { background: #0f7b0f; }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>💰 Simulateur de Crédit Immobilier</h1>
+        <div class="page-title">Simulateur de Crédit Immobilier</div>
         <p class="subtitle">Brice · Vincent · Justine — Budget max : 130 000 €</p>
 
         <div class="grid">
-            <!-- PARAMETRES DU BIEN -->
+
+            <!-- PARAMÈTRES DU BIEN -->
             <div class="card">
-                <h2><span class="icon icon-blue">🏠</span> Paramètres du bien</h2>
-
-                <div class="slider-group">
-                    <label>Prix du bien <span class="slider-value" id="prix-display">90 000 €</span></label>
-                    <input type="range" id="prix" min="10000" max="2000000" step="5000" value="90000">
+                <div class="card-header">
+                    <span class="dot dot-blue">●</span> Paramètres du bien
                 </div>
 
-                <div class="slider-group">
-                    <label>Apport personnel <span class="slider-value" id="apport-display">10 000 €</span></label>
-                    <input type="range" id="apport" min="0" max="1000000" step="5000" value="10000">
+                <div class="slider-row">
+                    <span class="lbl">Prix du bien</span>
+                    <span class="val" id="prix-display">90 000 €</span>
                 </div>
+                <input type="range" id="prix" min="10000" max="2000000" step="5000" value="90000">
 
-                <div class="slider-group">
-                    <label>Travaux estimés <span class="slider-value" id="travaux-display">5 000 €</span></label>
-                    <input type="range" id="travaux" min="0" max="500000" step="1000" value="5000">
+                <div class="slider-row">
+                    <span class="lbl">Apport personnel</span>
+                    <span class="val" id="apport-display">10 000 €</span>
                 </div>
+                <input type="range" id="apport" min="0" max="1000000" step="5000" value="10000">
 
-                <div class="divider"></div>
+                <div class="slider-row">
+                    <span class="lbl">Travaux estimés</span>
+                    <span class="val" id="travaux-display">5 000 €</span>
+                </div>
+                <input type="range" id="travaux" min="0" max="500000" step="1000" value="5000">
+
+                <div class="sep"></div>
 
                 <div class="result-row">
-                    <span class="result-label">Frais de notaire (~8%)</span>
-                    <span class="result-value" id="notaire">7 200 €</span>
+                    <span class="lbl">Frais de notaire (~8%)</span>
+                    <span class="val" id="notaire">7 200 €</span>
                 </div>
                 <div class="result-row">
-                    <span class="result-label">Coût total acquisition</span>
-                    <span class="result-value highlight-blue" id="total-acquisition">102 200 €</span>
+                    <span class="lbl">Coût total acquisition</span>
+                    <span class="val c-blue" id="total-acquisition">102 200 €</span>
                 </div>
             </div>
 
-            <!-- PARAMETRES DU CREDIT -->
+            <!-- PARAMÈTRES DU CRÉDIT -->
             <div class="card">
-                <h2><span class="icon icon-green">🏦</span> Paramètres du crédit</h2>
-
-                <div class="slider-group">
-                    <label>Taux annuel <span class="slider-value" id="taux-display">3.50 %</span></label>
-                    <input type="range" id="taux" min="0.5" max="7" step="0.05" value="3.5">
+                <div class="card-header">
+                    <span class="dot dot-green">●</span> Paramètres du crédit
                 </div>
 
-                <div class="slider-group">
-                    <label>Durée <span class="slider-value" id="duree-display">20 ans</span></label>
-                    <input type="range" id="duree" min="5" max="30" step="1" value="20">
+                <div class="slider-row">
+                    <span class="lbl">Taux annuel</span>
+                    <span class="val" id="taux-display">3.50 %</span>
                 </div>
+                <input type="range" id="taux" min="0.5" max="7" step="0.05" value="3.5">
 
-                <div class="slider-group">
-                    <label>Assurance (taux annuel) <span class="slider-value" id="assurance-display">0.36 %</span></label>
-                    <input type="range" id="assurance" min="0.05" max="1.0" step="0.01" value="0.36">
+                <div class="slider-row">
+                    <span class="lbl">Durée</span>
+                    <span class="val" id="duree-display">20 ans</span>
                 </div>
+                <input type="range" id="duree" min="5" max="30" step="1" value="20">
 
-                <div class="divider"></div>
+                <div class="slider-row">
+                    <span class="lbl">Assurance (taux annuel)</span>
+                    <span class="val" id="assurance-display">0.36 %</span>
+                </div>
+                <input type="range" id="assurance" min="0.05" max="1.0" step="0.01" value="0.36">
+
+                <div class="sep"></div>
 
                 <div class="result-row">
-                    <span class="result-label">Montant emprunté</span>
-                    <span class="result-value highlight-blue" id="emprunt">92 200 €</span>
+                    <span class="lbl">Montant emprunté</span>
+                    <span class="val c-blue" id="emprunt">92 200 €</span>
                 </div>
                 <div class="result-row">
-                    <span class="result-label">Coût total des intérêts</span>
-                    <span class="result-value highlight-orange" id="cout-interets">36 480 €</span>
+                    <span class="lbl">Coût total des intérêts</span>
+                    <span class="val c-orange" id="cout-interets">36 480 €</span>
                 </div>
                 <div class="result-row">
-                    <span class="result-label">Coût total assurance</span>
-                    <span class="result-value" id="cout-assurance">6 000 € (25 €/mois)</span>
+                    <span class="lbl">Coût total assurance</span>
+                    <span class="val" id="cout-assurance">6 000 € (25 €/mois)</span>
                 </div>
             </div>
 
-            <!-- MENSUALITE -->
+            <!-- MENSUALITÉ -->
             <div class="card">
-                <h2><span class="icon icon-orange">📅</span> Mensualité</h2>
-                <div class="big-number">
-                    <div class="value highlight-blue" id="mensualite">535 €</div>
-                    <div class="label">par mois (hors assurance)</div>
+                <div class="card-header">
+                    <span class="dot dot-orange">●</span> Mensualité
                 </div>
-                <div class="divider"></div>
-                <div class="result-row">
-                    <span class="result-label">Mensualité + assurance</span>
-                    <span class="result-value highlight-blue" id="mensualite-totale">560 €</span>
+                <div class="big-num">
+                    <div class="value c-blue" id="mensualite">535 €</div>
+                    <div class="sublabel">par mois (hors assurance)</div>
                 </div>
+                <div class="sep"></div>
                 <div class="result-row">
-                    <span class="result-label">Coût total du crédit</span>
-                    <span class="result-value highlight-orange" id="cout-total-credit">42 480 €</span>
+                    <span class="lbl">Mensualité + assurance</span>
+                    <span class="val c-blue" id="mensualite-totale">560 €</span>
                 </div>
                 <div class="result-row">
-                    <span class="result-label">Coût total opération</span>
-                    <span class="result-value" id="cout-total-operation">144 680 €</span>
+                    <span class="lbl">Coût total du crédit</span>
+                    <span class="val c-orange" id="cout-total-credit">42 480 €</span>
+                </div>
+                <div class="result-row">
+                    <span class="lbl">Coût total opération</span>
+                    <span class="val" id="cout-total-operation">144 680 €</span>
                 </div>
             </div>
 
-            <!-- RENTABILITE -->
+            <!-- RENTABILITÉ -->
             <div class="card">
-                <h2><span class="icon icon-purple">📊</span> Rentabilité locative</h2>
-
-                <div class="slider-group">
-                    <label>Loyer mensuel estimé <span class="slider-value" id="loyer-display">650 €</span></label>
-                    <input type="range" id="loyer" min="100" max="10000" step="50" value="650">
+                <div class="card-header">
+                    <span class="dot dot-purple">●</span> Rentabilité locative
                 </div>
 
-                <div class="slider-group">
-                    <label>Charges mensuelles <span class="slider-value" id="charges-display">150 €</span></label>
-                    <input type="range" id="charges" min="0" max="500" step="10" value="150">
+                <div class="slider-row">
+                    <span class="lbl">Loyer mensuel estimé</span>
+                    <span class="val" id="loyer-display">650 €</span>
                 </div>
+                <input type="range" id="loyer" min="100" max="10000" step="50" value="650">
 
-                <div class="divider"></div>
+                <div class="slider-row">
+                    <span class="lbl">Charges mensuelles</span>
+                    <span class="val" id="charges-display">150 €</span>
+                </div>
+                <input type="range" id="charges" min="0" max="500" step="10" value="150">
+
+                <div class="sep"></div>
 
                 <div class="result-row">
-                    <span class="result-label">Rentabilité brute</span>
-                    <span class="result-value highlight-green" id="renta-brute">8.67 %</span>
+                    <span class="lbl">Rentabilité brute</span>
+                    <span class="val" id="renta-brute">8.67 %</span>
                 </div>
                 <div class="result-row">
-                    <span class="result-label">Rentabilité nette</span>
-                    <span class="result-value" id="renta-nette">6.67 %</span>
+                    <span class="lbl">Rentabilité nette</span>
+                    <span class="val" id="renta-nette">6.67 %</span>
                 </div>
 
-                <div class="cashflow-box cashflow-positive" id="cashflow-box">
-                    <div class="value" id="cashflow">+65 €</div>
-                    <div class="label" id="cashflow-label">Cash-flow mensuel</div>
+                <div class="cashflow-box cf-pos" id="cashflow-box">
+                    <div class="cf-val" id="cashflow">+65 €</div>
+                    <div class="cf-lbl">Cash-flow mensuel</div>
                 </div>
             </div>
 
-            <!-- REPARTITION DES COUTS -->
+            <!-- RÉPARTITION DES COÛTS -->
             <div class="card full-width">
-                <h2><span class="icon icon-blue">📐</span> Répartition des coûts</h2>
-                <div class="bar-container" id="bars">
+                <div class="card-header">
+                    <span class="dot dot-blue">●</span> Répartition des coûts
                 </div>
+                <div class="bar-container" id="bars"></div>
             </div>
+
         </div>
     </div>
 
@@ -410,85 +360,83 @@
         }
 
         function update() {
-            const prix = +$('prix').value;
-            const apport = +$('apport').value;
-            const travaux = +$('travaux').value;
-            const taux = +$('taux').value;
-            const duree = +$('duree').value;
+            const prix         = +$('prix').value;
+            const apport       = +$('apport').value;
+            const travaux      = +$('travaux').value;
+            const taux         = +$('taux').value;
+            const duree        = +$('duree').value;
             const assuranceTaux = +$('assurance').value;
-            const loyer = +$('loyer').value;
-            const charges = +$('charges').value;
+            const loyer        = +$('loyer').value;
+            const charges      = +$('charges').value;
 
-            const notaire = Math.round(prix * 0.08);
-            const totalAcquisition = prix + notaire + travaux;
-            const emprunt = totalAcquisition - apport;
-            const mensualite = calcMensualite(emprunt, taux, duree);
-            const assurance = (emprunt * assuranceTaux / 100) / 12;
-            const mensualiteTotale = mensualite + assurance;
-            const coutInterets = mensualite * duree * 12 - emprunt;
-            const coutAssurance = assurance * duree * 12;
-            const coutTotalCredit = coutInterets + coutAssurance;
+            const notaire           = Math.round(prix * 0.08);
+            const totalAcquisition  = prix + notaire + travaux;
+            const emprunt           = totalAcquisition - apport;
+            const mensualite        = calcMensualite(emprunt, taux, duree);
+            const assurance         = (emprunt * assuranceTaux / 100) / 12;
+            const mensualiteTotale  = mensualite + assurance;
+            const coutInterets      = mensualite * duree * 12 - emprunt;
+            const coutAssurance     = assurance * duree * 12;
+            const coutTotalCredit   = coutInterets + coutAssurance;
             const coutTotalOperation = totalAcquisition + coutTotalCredit;
 
             const rentaBrute = prix > 0 ? (loyer * 12 / prix * 100) : 0;
             const rentaNette = prix > 0 ? ((loyer - charges) * 12 / (prix + travaux) * 100) : 0;
-            const cashflow = loyer - mensualiteTotale - charges;
+            const cashflow   = loyer - mensualiteTotale - charges;
 
-            // Displays
-            $('prix-display').textContent = fmt(prix);
-            $('apport-display').textContent = fmt(apport);
-            $('travaux-display').textContent = fmt(travaux);
-            $('taux-display').textContent = fmtPct(taux);
-            $('duree-display').textContent = duree + ' ans';
+            // Slider value displays
+            $('prix-display').textContent      = fmt(prix);
+            $('apport-display').textContent    = fmt(apport);
+            $('travaux-display').textContent   = fmt(travaux);
+            $('taux-display').textContent      = fmtPct(taux);
+            $('duree-display').textContent     = duree + ' ans';
             $('assurance-display').textContent = assuranceTaux.toFixed(2) + ' %';
-            $('loyer-display').textContent = fmt(loyer);
-            $('charges-display').textContent = fmt(charges);
+            $('loyer-display').textContent     = fmt(loyer);
+            $('charges-display').textContent   = fmt(charges);
 
-            $('notaire').textContent = fmt(notaire);
+            // Results
+            $('notaire').textContent           = fmt(notaire);
             $('total-acquisition').textContent = fmt(totalAcquisition);
-            $('emprunt').textContent = fmt(emprunt);
-            $('cout-interets').textContent = fmt(coutInterets);
-            $('cout-assurance').textContent = fmt(coutAssurance) + ' (' + fmt(Math.round(assurance)) + '/mois)';
-            $('mensualite').textContent = fmt(Math.round(mensualite));
+            $('emprunt').textContent           = fmt(emprunt);
+            $('cout-interets').textContent     = fmt(coutInterets);
+            $('cout-assurance').textContent    = fmt(coutAssurance) + ' (' + fmt(Math.round(assurance)).replace(' €','') + ' €/mois)';
+            $('mensualite').textContent        = fmt(Math.round(mensualite));
             $('mensualite-totale').textContent = fmt(Math.round(mensualiteTotale));
             $('cout-total-credit').textContent = fmt(coutTotalCredit);
             $('cout-total-operation').textContent = fmt(coutTotalOperation);
 
-            $('renta-brute').textContent = fmtPct(rentaBrute);
-            $('renta-brute').className = 'result-value ' + (rentaBrute >= 7 ? 'highlight-green' : rentaBrute >= 5 ? 'highlight-orange' : 'highlight-red');
+            // Rentabilité
+            const rb = $('renta-brute');
+            rb.textContent = fmtPct(rentaBrute);
+            rb.className = 'val ' + (rentaBrute >= 7 ? 'c-green' : rentaBrute >= 5 ? 'c-orange' : 'c-red');
             $('renta-nette').textContent = fmtPct(rentaNette);
 
+            // Cash-flow
             $('cashflow').textContent = (cashflow >= 0 ? '+' : '') + fmt(Math.round(cashflow));
-            const box = $('cashflow-box');
-            box.className = 'cashflow-box ' + (cashflow >= 0 ? 'cashflow-positive' : 'cashflow-negative');
             $('cashflow').style.color = cashflow >= 0 ? '#0f7b0f' : '#e03e3e';
+            $('cashflow-box').className = 'cashflow-box ' + (cashflow >= 0 ? 'cf-pos' : 'cf-neg');
 
             // Bars
             const items = [
-                { label: 'Prix du bien', value: prix, color: 'fill-blue' },
-                { label: 'Frais notaire', value: notaire, color: 'fill-purple' },
-                { label: 'Travaux', value: travaux, color: 'fill-orange' },
-                { label: 'Intérêts', value: coutInterets, color: 'fill-red' },
-                { label: 'Assurance', value: coutAssurance, color: 'fill-green' },
+                { label: 'Prix du bien',  value: prix,         color: 'fill-blue'   },
+                { label: 'Frais notaire', value: notaire,      color: 'fill-purple' },
+                { label: 'Travaux',       value: travaux,      color: 'fill-orange' },
+                { label: 'Intérêts',      value: coutInterets, color: 'fill-red'    },
+                { label: 'Assurance',     value: coutAssurance,color: 'fill-green'  },
             ];
-            const maxVal = Math.max(...items.map(i => i.value));
+            const maxVal = Math.max(...items.map(i => i.value), 1);
             $('bars').innerHTML = items.map(i => `
                 <div class="bar-row">
-                    <span class="bar-label">${i.label}</span>
+                    <span class="bar-lbl">${i.label}</span>
                     <div class="bar-track">
-                        <div class="bar-fill ${i.color}" style="width: ${maxVal > 0 ? (i.value / maxVal * 100) : 0}%"></div>
+                        <div class="bar-fill ${i.color}" style="width:${(i.value/maxVal*100).toFixed(1)}%"></div>
                     </div>
-                    <span class="bar-amount">${fmt(i.value)}</span>
+                    <span class="bar-amt">${fmt(i.value)}</span>
                 </div>
             `).join('');
         }
 
-        // Attach listeners to all sliders
-        document.querySelectorAll('input[type="range"]').forEach(el => {
-            el.addEventListener('input', update);
-        });
-
-        // Initial calculation
+        document.querySelectorAll('input[type="range"]').forEach(el => el.addEventListener('input', update));
         update();
     </script>
 </body>
